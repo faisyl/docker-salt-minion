@@ -12,8 +12,10 @@ RUN apt-key add /tmp/debian-salt-team-joehealy.gpg.key && \
 
 ENV SALT_VERSION 2015.5.0+ds-1~bpo70+1
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-  salt-minion=${SALT_VERSION} vim ssh net-tools procps && \
+  salt-minion=${SALT_VERSION} vim ssh net-tools procps python-setuptools git && \
   rm -rf /var/lib/apt/lists/* && apt-get clean
+
+RUN cd /tmp && git clone https://github.com/docker/docker-py.git && cd docker-py && python setup.py install
 
 RUN rm /usr/sbin/policy-rc.d
 
