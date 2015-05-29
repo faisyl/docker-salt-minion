@@ -1,0 +1,45 @@
+#cloud-config
+
+# Adds SSH keys to the rancher user
+ssh_authorized_keys:
+ - ssh-rsa AAA... darren@rancher
+
+write_files:
+ write_files:
+  - path: /var/lib/rancher/conf/salt-minion.yml
+    permissions: 0755
+    owner: root
+    content: |
+     salt-minion:
+      image: faisyl/wheezysalt
+      privileged: true
+      links:
+       - cloud-init
+      labels:
+       - io.rancher.os.scope=system
+      volumes:
+       - /var/lib/rancher/conf/salt:/etc/salt
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /data:/data
+      restart: always
+      pid: host
+      ipc: host
+      net: host
+  - path: /var/lib/rancher/conf/salt/minion
+    permissions: 0755
+    owner: root
+    content: |
+     master: salt.mydomain.org
+     log_level: debug
+  - path: /var/lib/rancher/conf/salt/minion_id
+    permissions: 0755
+    owner: root
+    content: |
+     minion1.mydomain.org
+  - path: /var/lib/rancher/conf/salt/minion.d/grains.conf
+    permissions: 0755
+    owner: root
+    content: |
+     grains:
+      env: dev
+      role: master
