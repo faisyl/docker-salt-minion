@@ -22,6 +22,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup \
     && rm /usr/sbin/policy-rc.d
 
 VOLUME /etc/salt
+VOLUME /data
 
 ADD salt-minion.runit /etc/service/salt-minion/run
 ADD my_init /sbin/
