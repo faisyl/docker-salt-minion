@@ -16,7 +16,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup \
     && apt-key add /tmp/debian-salt-team-joehealy.gpg.key \
     && rm /tmp/debian-salt-team-joehealy.gpg.key \
     && apt-get update && apt-get install -yq --no-install-recommends \
-        salt-minion=${SALT_VERSION} vim ssh net-tools procps python3 python-setuptools git runit \
+        salt-minion=${SALT_VERSION} vim ssh net-tools procps python3 python-setuptools git runit virt-what \
     && rm -rf /var/lib/apt/lists/* && apt-get clean \
     && cd /tmp && git clone https://github.com/docker/docker-py.git && cd docker-py && python setup.py install \
     && rm /usr/sbin/policy-rc.d
