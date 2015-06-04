@@ -24,6 +24,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup \
 VOLUME /etc/salt
 VOLUME /data
 
+ADD dockerio-fixes.tar.gz /usr/lib/python2.7/dist-packages/salt
 ADD salt-minion.runit /etc/service/salt-minion/run
 ADD my_init /sbin/
 RUN chmod a+x /etc/service/salt-minion/run /sbin/my_init
